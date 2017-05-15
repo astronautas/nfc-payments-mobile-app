@@ -45,7 +45,10 @@ namespace nfc_app
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int ic_menu_preferences = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int icon = 2130837505;
 			
 			static Drawable()
 			{
@@ -60,17 +63,11 @@ namespace nfc_app
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int ape_view = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int menu_settings = 2131099649;
 			
-			// aapt resource value: 0x7f050000
-			public const int back_to_main_activity = 2131034112;
-			
-			// aapt resource value: 0x7f050003
-			public const int text_view = 2131034115;
-			
-			// aapt resource value: 0x7f050002
-			public const int write_tag_button = 2131034114;
+			// aapt resource value: 0x7f060000
+			public const int textView = 2131099648;
 			
 			static Id()
 			{
@@ -86,10 +83,7 @@ namespace nfc_app
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int DisplayHominid = 2130903040;
-			
-			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int Main = 2130903040;
 			
 			static Layout()
 			{
@@ -101,17 +95,33 @@ namespace nfc_app
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int Options = 2131034112;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
 			// aapt resource value: 0x7f040000
 			public const int app_name = 2130968576;
 			
-			// aapt resource value: 0x7f040002
-			public const int button_back_to_main_activity = 2130968578;
-			
 			// aapt resource value: 0x7f040001
-			public const int button_write_new_tag = 2130968577;
+			public const int info = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int menu_settings = 2130968578;
 			
 			static String()
 			{

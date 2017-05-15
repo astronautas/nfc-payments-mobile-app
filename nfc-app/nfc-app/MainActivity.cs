@@ -1,230 +1,164 @@
-﻿using Android.App;
-using Android.Widget;
-using Android.OS;
-using System;
+﻿using System;
 using System.Text;
-using Android.Content;
+using Android.App;
 using Android.Nfc;
-using Android.Nfc.Tech;
-using Android.Util;
+using Android.Content;
+using Android.Provider;
+using Android.Runtime;
+using Android.OS;
+using Android.Text.Format;
 using Android.Views;
-
-using Java.IO;
+using Android.Widget;
 
 namespace nfc_app
 {
-
-
-    [Activity(Label = "@string/app_name", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    [Activity(Label = "MonoDroid BeamDemo", MainLauncher = true)]
+    public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
-        /// <summary>
-        /// A mime type for the the string that this app will write to the NFC tag. Will be
-        /// used to help this application identify NFC tags that is has written to.
-        /// </summary>
-        public const string ViewApeMimeType = "application/vnd.xamarin.nfcxample";
-        public static readonly string NfcAppRecord = "xamarin.nfxample";
-        public static readonly string Tag = "NfcXample";
-
-        private bool _inWriteMode;
-        private NfcAdapter _nfcAdapter;
-        private TextView _textView;
-        private Button _writeTagButton;
-
-        protected override void OnCreate(Bundle bundle)
+        public Beam()
         {
-            base.OnCreate(bundle);
-            SetContentView(Resource.Layout.Main);
-
-            // Get a reference to the default NFC adapter for this device. This adapter 
-            // is how an Android application will interact with the actual hardware.
-            _nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
-
-            _writeTagButton = FindViewById<Button>(Resource.Id.write_tag_button);
-            _writeTagButton.Click += WriteTagButtonOnClick;
-
-            _textView = FindViewById<TextView>(Resource.Id.text_view);
+            mHandler = new MyHandler(HandlerHandleMessage);
         }
 
-        /// <summary>
-        /// This method is called when an NFC tag is discovered by the application.
-        /// </summary>
-        /// <param name="intent"></param>
+        NfcAdapter mNfcAdapter;
+        TextView mInfoText;
+        private const int MESSAGE_SENT = 1;
+
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            this.SetContentView(Resource.Layout.Main);
+
+            mInfoText = FindViewById<TextView>(Resource.Id.textView);
+            // Check for available NFC Adapter
+            mNfcAdapter = NfcAdapter.GetDefaultAdapter(this);
+
+            if (mNfcAdapter == null)
+            {
+                mInfoText = FindViewById<TextView>(Resource.Id.textView);
+                mInfoText.Text = "NFC is not available on this device.";
+            }
+            else {
+                // Register callback to set NDEF message
+                mNfcAdapter.SetNdefPushMessageCallback(this, this);
+                // Register callback to listen for message-sent success
+                mNfcAdapter.SetOnNdefPushCompleteCallback(this, this);
+            }
+        }
+
+        public NdefMessage CreateNdefMessage(NfcEvent evt)
+        {
+            DateTime time = DateTime.Now;
+            var text = ("Beam me up!\n\n" +
+                           "Beam Time: " + time.ToString("HH:mm:ss"));
+            NdefMessage msg = new NdefMessage(
+            new NdefRecord[] { CreateMimeRecord (
+                "application/com.example.android.beam", Encoding.UTF8.GetBytes (text))
+			/**
+			* The Android Application Record (AAR) is commented out. When a device
+			* receives a push with an AAR in it, the application specified in the AAR
+			* is guaranteed to run. The AAR overrides the tag dispatch system.
+			* You can add it back in to guarantee that this
+			* activity starts when receiving a beamed message. For now, this code
+			* uses the tag dispatch system.
+			*/
+			//,NdefRecord.CreateApplicationRecord("com.example.android.beam")
+			});
+            return msg;
+        }
+
+        public void OnNdefPushComplete(NfcEvent arg0)
+        {
+            // A handler is needed to send messages to the activity when this
+            // callback occurs, because it happens from a binder thread
+            mHandler.ObtainMessage(MESSAGE_SENT).SendToTarget();
+        }
+
+        class MyHandler : Handler
+        {
+            public MyHandler(Action<Message> handler)
+            {
+                this.handle_message = handler;
+            }
+
+            Action<Message> handle_message;
+            public override void HandleMessage(Message msg)
+            {
+                handle_message(msg);
+            }
+        }
+
+        private readonly Handler mHandler;
+
+        protected void HandlerHandleMessage(Message msg)
+        {
+            switch (msg.What)
+            {
+                case MESSAGE_SENT:
+                    Toast.MakeText(this.ApplicationContext, "Message sent!", ToastLength.Long).Show();
+                    break;
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            // Check to see that the Activity started due to an Android Beam
+            if (NfcAdapter.ActionNdefDiscovered == Intent.Action)
+            {
+                ProcessIntent(Intent);
+            }
+        }
+
         protected override void OnNewIntent(Intent intent)
         {
-            if (_inWriteMode)
+            // onResume gets called after this to handle the intent
+            Intent = intent;
+        }
+
+        void ProcessIntent(Intent intent)
+        {
+            IParcelable[] rawMsgs = intent.GetParcelableArrayExtra(
+                NfcAdapter.ExtraNdefMessages);
+            // only one message sent during the beam
+            NdefMessage msg = (NdefMessage)rawMsgs[0];
+            // record 0 contains the MIME type, record 1 is the AAR, if present
+            mInfoText.Text = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());
+        }
+
+        public NdefRecord CreateMimeRecord(String mimeType, byte[] payload)
+        {
+            byte[] mimeBytes = Encoding.UTF8.GetBytes(mimeType);
+            NdefRecord mimeRecord = new NdefRecord(
+                NdefRecord.TnfMimeMedia, mimeBytes, new byte[0], payload);
+            return mimeRecord;
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            // If NFC is not available, we won't be needing this menu
+            if (mNfcAdapter == null)
             {
-                _inWriteMode = false;
-                var tag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
-
-                if (tag == null)
-                {
-                    return;
-                }
-
-                // These next few lines will create a payload (consisting of a string)
-                // and a mimetype. NFC record are arrays of bytes. 
-                var payload = Encoding.ASCII.GetBytes(GetRandomHominid());
-                var mimeBytes = Encoding.ASCII.GetBytes(ViewApeMimeType);
-                var apeRecord = new NdefRecord(NdefRecord.TnfMimeMedia, mimeBytes, new byte[0], payload);
-                var ndefMessage = new NdefMessage(new[] { apeRecord });
-
-                if (!TryAndWriteToTag(tag, ndefMessage))
-                {
-                    // Maybe the write couldn't happen because the tag wasn't formatted?
-                    TryAndFormatTagWithMessage(tag, ndefMessage);
-                }
+                return base.OnCreateOptionsMenu(menu);
             }
+            MenuInflater inflater = MenuInflater;
+            inflater.Inflate(Resource.Menu.Options, menu);
+            return true;
         }
 
-        protected override void OnPause()
+        public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            base.OnPause();
-            // App is paused, so no need to keep an eye out for NFC tags.
-            if (_nfcAdapter != null)
-                _nfcAdapter.DisableForegroundDispatch(this);
-        }
-
-        private void DisplayMessage(string message)
-        {
-            _textView.Text = message;
-            Log.Info(Tag, message);
-        }
-
-        /// <summary>
-        /// Identify to Android that this activity wants to be notified when 
-        /// an NFC tag is discovered. 
-        /// </summary>
-        private void EnableWriteMode()
-        {
-            _inWriteMode = true;
-
-            // Create an intent filter for when an NFC tag is discovered.  When
-            // the NFC tag is discovered, Android will u
-            var tagDetected = new IntentFilter(NfcAdapter.ActionTagDiscovered);
-            var filters = new[] { tagDetected };
-
-            // When an NFC tag is detected, Android will use the PendingIntent to come back to this activity.
-            // The OnNewIntent method will invoked by Android.
-            var intent = new Intent(this, GetType()).AddFlags(ActivityFlags.SingleTop);
-            var pendingIntent = PendingIntent.GetActivity(this, 0, intent, 0);
-
-            if (_nfcAdapter == null)
+            switch (item.ItemId)
             {
-                var alert = new AlertDialog.Builder(this).Create();
-                alert.SetMessage("NFC is not supported on this device.");
-                alert.SetTitle("NFC Unavailable");
-                alert.SetButton("OK", delegate {
-                    _writeTagButton.Enabled = false;
-                    _textView.Text = "NFC is not supported on this device.";
-                });
-                alert.Show();
-            }
-            else
-                _nfcAdapter.EnableForegroundDispatch(this, pendingIntent, filters, null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tag"></param>
-        /// <param name="ndefMessage"></param>
-        /// <returns></returns>
-        private bool TryAndFormatTagWithMessage(Tag tag, NdefMessage ndefMessage)
-        {
-            var format = NdefFormatable.Get(tag);
-            if (format == null)
-            {
-                DisplayMessage("Tag does not appear to support NDEF format.");
-            }
-            else
-            {
-                try
-                {
-                    format.Connect();
-                    format.Format(ndefMessage);
-                    DisplayMessage("Tag successfully written.");
+                case Resource.Id.menu_settings:
+                    Intent intent = new Intent(Settings.ActionNfcsharingSettings);
+                    StartActivity(intent);
                     return true;
-                }
-                catch (IOException ioex)
-                {
-                    var msg = "There was an error trying to format the tag.";
-                    DisplayMessage(msg);
-                    Log.Error(Tag, ioex, msg);
-                }
+                default:
+                    return base.OnOptionsItemSelected(item);
             }
-            return false;
-        }
-
-        /// <summary>
-        /// Pick one of the four hominids to display
-        /// </summary>
-        /// <returns>A string that corresponds to one of the images in this application.</returns>
-        private string GetRandomHominid()
-        {
-            var random = new Random();
-            var r = random.NextDouble();
-            Log.Debug(Tag, "Random number: {0}", r.ToString("N2"));
-            if (r < 0.25)
-            {
-                return "heston";
-            }
-            if (r < 0.5)
-            {
-                return "gorillas";
-            }
-            if (r < 0.75)
-            {
-                return "dr_zaius";
-            }
-            return "cornelius";
-        }
-
-        private void WriteTagButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            var view = (View)sender;
-            if (view.Id == Resource.Id.write_tag_button)
-            {
-                DisplayMessage("Touch and hold the tag against the phone to write.");
-                EnableWriteMode();
-            }
-        }
-
-        /// <summary>
-        /// This method will try and write the specified message to the provided tag. 
-        /// </summary>
-        /// <param name="tag">The NFC tag that was detected.</param>
-        /// <param name="ndefMessage">An NDEF message to write.</param>
-        /// <returns>true if the tag was written to.</returns>
-        private bool TryAndWriteToTag(Tag tag, NdefMessage ndefMessage)
-        {
-
-            // This object is used to get information about the NFC tag as 
-            // well as perform operations on it.
-            var ndef = Ndef.Get(tag);
-            if (ndef != null)
-            {
-                ndef.Connect();
-
-                // Once written to, a tag can be marked as read-only - check for this.
-                if (!ndef.IsWritable)
-                {
-                    DisplayMessage("Tag is read-only.");
-                }
-
-                // NFC tags can only store a small amount of data, this depends on the type of tag its.
-                var size = ndefMessage.ToByteArray().Length;
-                if (ndef.MaxSize < size)
-                {
-                    DisplayMessage("Tag doesn't have enough space.");
-                }
-
-                ndef.WriteNdefMessage(ndefMessage);
-                DisplayMessage("Succesfully wrote tag.");
-                return true;
-            }
-
-            return false;
         }
     }
 }
+
+

@@ -48,8 +48,7 @@ namespace nfc_app
         public NdefMessage CreateNdefMessage(NfcEvent evt)
         {
             DateTime time = DateTime.Now;
-            var text = ("Beam me up!\n\n" +                                     //TEXT TO SEND
-                           "Beam Time: " + time.ToString("HH:mm:ss"));
+            var text = ("Sending a TOKEN here");
             NdefMessage msg = new NdefMessage(
             new NdefRecord[] { CreateMimeRecord (
                 "application/com.example.android.beam", Encoding.UTF8.GetBytes (text))
@@ -123,6 +122,8 @@ namespace nfc_app
             NdefMessage msg = (NdefMessage)rawMsgs[0];
             // record 0 contains the MIME type, record 1 is the AAR, if present
             mInfoText.Text = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());     //WHAT TO DO WITH SENT DATA
+
+            OpenReaderActivity(mInfoText.Text);
         }
 
         public NdefRecord CreateMimeRecord(String mimeType, byte[] payload)
@@ -156,6 +157,13 @@ namespace nfc_app
                 default:
                     return base.OnOptionsItemSelected(item);
             }
+        }
+
+        private void OpenReaderActivity(string token)
+        {
+            var readerActivity = new Intent(this, typeof(ReaderActivity));
+            readerActivity.PutExtra("Token", token);
+            StartActivity(readerActivity);
         }
     }
 }

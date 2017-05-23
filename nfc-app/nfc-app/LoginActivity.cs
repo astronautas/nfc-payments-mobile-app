@@ -26,7 +26,7 @@ namespace nfc_app
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            this.SetContentView(Resource.Layout.Login);
+            SetContentView(Resource.Layout.Login);
 
             _createUserButton = FindViewById<Button>(Resource.Id.signupButton);
             _createUserButton.Click += (o, e) => StartActivity(typeof(RegistrationActivity));
@@ -47,7 +47,20 @@ namespace nfc_app
             try
             {
                 string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json);
-                StartActivity(typeof(UserMainActivity));   
+                if (response != string.Empty && response.Contains("auth_token"))
+                {
+                    string temp = response.Split(':')[1].Trim();
+                    string token = temp.Substring(1, temp.Length - 3);
+                    Log.Warn(_tag, token);
+                    //User.CreateUser(email, password, token);
+                    //bybi man i aki, nes nx negalima statiniu objektu tarp activities perdavineti
+
+                    StartActivity(typeof(UserMainActivity));
+                }
+                else
+                {
+                    new Exception("Nepavyko prisijungti");
+                }
             }
             catch(Exception ex)
             {

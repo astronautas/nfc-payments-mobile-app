@@ -8,69 +8,47 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
-        android:text="User email"
+        android:text="Apmokėti"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_weight="20"
         android:layout_height="0dp"
         android:textColor="@android:color/black"
-        android:gravity="top"
+        android:gravity="center"
         android:textSize="32sp"
-        android:id="@+id/userEmailText" />
+        android:id="@+id/payText" />
     <Button
-        android:id="@+id/adFbButton"
+        android:id="@+id/pauFromBankButton"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="Pridėti Facebook paskyrą"
+        android:layout_weight="15"
+        android:text="Apmokėti banko kortele"
         android:theme="@android:style/Theme.DeviceDefault.Light"
         android:textColor="@android:color/black" />
     <Button
-        android:id="@+id/addFriendButton"
+        android:id="@+id/payFromVirtualButton"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="Pridėti draugą"
+        android:layout_weight="15"
+        android:text="Apmokėti iš virtualios sąskaitos"
         android:theme="@android:style/Theme.DeviceDefault.Light"
         android:textColor="@android:color/black" />
     <Button
-        android:id="@+id/getReportButton"
+        android:id="@+id/payFromMobileButton"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="Gauti ataskaitą"
-        android:theme="@android:style/Theme.DeviceDefault.Light"
-        android:textColor="@android:color/black" />
-    <Button
-        android:id="@+id/askMoneyButton"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="Prašyti pinigų"
-        android:theme="@android:style/Theme.DeviceDefault.Light"
-        android:textColor="@android:color/black" />
-    <Button
-        android:id="@+id/payButton"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="Apmokėti"
+        android:layout_weight="15"
+        android:text="Apmokėti iš mobiliojo ryšio sąskaitos"
         android:theme="@android:style/Theme.DeviceDefault.Light"
         android:textColor="@android:color/black" />
 </LinearLayout>

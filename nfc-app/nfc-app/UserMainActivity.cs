@@ -15,10 +15,19 @@ namespace nfc_app
     [Activity(MainLauncher = false)]
     class UserMainActivity : Activity
     {
+        private TextView _userEmailText;
+        private Button _payButton;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            this.SetContentView(Resource.Layout.UserMain);
+            SetContentView(Resource.Layout.UserMain);
+
+            _userEmailText = FindViewById<TextView>(Resource.Id.userEmailText);
+            //_userEmailText.Text = User.Init.email;
+
+            _payButton = FindViewById<Button>(Resource.Id.payButton);
+            _payButton.Click += (o, e) => StartActivity(typeof(PayActivity));
         }
     }
 }

@@ -28,6 +28,25 @@ namespace nfc_app
 		{
 		}
 		
+		public partial class Animation
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int slide_right = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int slide_up = 2130968577;
+			
+			static Animation()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Animation()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -63,68 +82,74 @@ namespace nfc_app
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06000f
-			public const int adFbButton = 2131099663;
+			// aapt resource value: 0x7f080011
+			public const int adFbButton = 2131230737;
 			
-			// aapt resource value: 0x7f060010
-			public const int addFriendButton = 2131099664;
+			// aapt resource value: 0x7f080012
+			public const int addFriendButton = 2131230738;
 			
-			// aapt resource value: 0x7f060012
-			public const int askMoneyButton = 2131099666;
+			// aapt resource value: 0x7f080014
+			public const int askMoneyButton = 2131230740;
 			
-			// aapt resource value: 0x7f060004
-			public const int btnCreateAccount = 2131099652;
+			// aapt resource value: 0x7f080004
+			public const int btnCreateAccount = 2131230724;
 			
-			// aapt resource value: 0x7f06000d
-			public const int btnMakePayment = 2131099661;
+			// aapt resource value: 0x7f08000d
+			public const int btnDialogProceed = 2131230733;
 			
-			// aapt resource value: 0x7f060001
-			public const int edtEmailInput = 2131099649;
+			// aapt resource value: 0x7f08000f
+			public const int btnMakePayment = 2131230735;
 			
-			// aapt resource value: 0x7f060003
-			public const int edtPasswordConfirmInput = 2131099651;
+			// aapt resource value: 0x7f080001
+			public const int edtEmailInput = 2131230721;
 			
-			// aapt resource value: 0x7f060002
-			public const int edtPasswordInput = 2131099650;
+			// aapt resource value: 0x7f080003
+			public const int edtPasswordConfirmInput = 2131230723;
 			
-			// aapt resource value: 0x7f06000c
-			public const int edtPaymentAmount = 2131099660;
+			// aapt resource value: 0x7f080002
+			public const int edtPasswordInput = 2131230722;
 			
-			// aapt resource value: 0x7f060006
-			public const int emailInput = 2131099654;
+			// aapt resource value: 0x7f08000e
+			public const int edtPaymentAmount = 2131230734;
 			
-			// aapt resource value: 0x7f060011
-			public const int getReportButton = 2131099665;
+			// aapt resource value: 0x7f080006
+			public const int emailInput = 2131230726;
 			
-			// aapt resource value: 0x7f060008
-			public const int loginButton = 2131099656;
+			// aapt resource value: 0x7f080013
+			public const int getReportButton = 2131230739;
 			
-			// aapt resource value: 0x7f060005
-			public const int loginText = 2131099653;
+			// aapt resource value: 0x7f080008
+			public const int loginButton = 2131230728;
 			
-			// aapt resource value: 0x7f060014
-			public const int menu_settings = 2131099668;
+			// aapt resource value: 0x7f080005
+			public const int loginText = 2131230725;
 			
-			// aapt resource value: 0x7f06000a
-			public const int noAccText = 2131099658;
+			// aapt resource value: 0x7f080016
+			public const int menu_settings = 2131230742;
 			
-			// aapt resource value: 0x7f060007
-			public const int passwordInput = 2131099655;
+			// aapt resource value: 0x7f08000a
+			public const int noAccText = 2131230730;
 			
-			// aapt resource value: 0x7f060013
-			public const int payButton = 2131099667;
+			// aapt resource value: 0x7f080007
+			public const int passwordInput = 2131230727;
 			
-			// aapt resource value: 0x7f060009
-			public const int signupButton = 2131099657;
+			// aapt resource value: 0x7f080015
+			public const int payButton = 2131230741;
 			
-			// aapt resource value: 0x7f06000b
-			public const int textView = 2131099659;
+			// aapt resource value: 0x7f080009
+			public const int signupButton = 2131230729;
 			
-			// aapt resource value: 0x7f060000
-			public const int txtAccount = 2131099648;
+			// aapt resource value: 0x7f08000b
+			public const int textView = 2131230731;
 			
-			// aapt resource value: 0x7f06000e
-			public const int userEmailText = 2131099662;
+			// aapt resource value: 0x7f080000
+			public const int txtAccount = 2131230720;
+			
+			// aapt resource value: 0x7f08000c
+			public const int txtNotification = 2131230732;
+			
+			// aapt resource value: 0x7f080010
+			public const int userEmailText = 2131230736;
 			
 			static Id()
 			{
@@ -149,10 +174,13 @@ namespace nfc_app
 			public const int Main = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Reader = 2130903043;
+			public const int Notification = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int UserMain = 2130903044;
+			public const int Reader = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int UserMain = 2130903045;
 			
 			static Layout()
 			{
@@ -167,8 +195,8 @@ namespace nfc_app
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int Options = 2131034112;
+			// aapt resource value: 0x7f070000
+			public const int Options = 2131165184;
 			
 			static Menu()
 			{
@@ -183,14 +211,17 @@ namespace nfc_app
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040000
-			public const int app_name = 2130968576;
+			// aapt resource value: 0x7f050003
+			public const int Message = 2131034115;
 			
-			// aapt resource value: 0x7f040001
-			public const int info = 2130968577;
+			// aapt resource value: 0x7f050000
+			public const int app_name = 2131034112;
 			
-			// aapt resource value: 0x7f040002
-			public const int menu_settings = 2130968578;
+			// aapt resource value: 0x7f050001
+			public const int info = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int menu_settings = 2131034114;
 			
 			static String()
 			{
@@ -198,6 +229,22 @@ namespace nfc_app
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int dialog_animation = 2131099648;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

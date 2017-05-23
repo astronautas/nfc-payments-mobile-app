@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Text.Format;
 using Android.Views;
 using Android.Widget;
+using Android.Util;
 
 namespace nfc_app
 {
@@ -23,6 +24,9 @@ namespace nfc_app
         NfcAdapter mNfcAdapter;
         TextView mInfoText;
         private const int MESSAGE_SENT = 1;
+        private string _nfcReaderId = "nfc8008";
+
+        private string _tag = "_myapp";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -123,7 +127,7 @@ namespace nfc_app
             // record 0 contains the MIME type, record 1 is the AAR, if present
             mInfoText.Text = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());     //WHAT TO DO WITH SENT DATA
 
-            OpenReaderActivity(mInfoText.Text);
+            MakePayment(mInfoText.Text);
         }
 
         public NdefRecord CreateMimeRecord(String mimeType, byte[] payload)
@@ -158,12 +162,35 @@ namespace nfc_app
                     return base.OnOptionsItemSelected(item);
             }
         }
-
+        /*
         private void OpenReaderActivity(string token)
         {
             var readerActivity = new Intent(this, typeof(ReaderActivity));
             readerActivity.PutExtra("Token", token);
             StartActivity(readerActivity);
+        }
+        */
+
+        private async void MakePayment(string token)
+        {
+            string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", _nfcReaderId, token);
+            try
+            {
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json);
+                OpenDialog();
+            }
+            catch (Exception ex)
+            {
+                Log.Warn(_tag, ex.Message);
+                //show message window that it failed
+            }
+        }
+
+        private void OpenDialog()
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            NotificationDialog notificationDialog = new NotificationDialog(typeof(Beam), "Apmokejimas issiustas sekmingai!");
+            notificationDialog.Show(transaction, "dialog fragment");
         }
     }
 }

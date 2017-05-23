@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:weightSum="100"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="User email"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_weight="20"
+        android:layout_height="0dp"
+        android:textColor="@android:color/black"
+        android:gravity="top"
+        android:textSize="32sp"
+        android:id="@+id/userEmailText" />
+    <Button
+        android:id="@+id/adFbButton"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:text="Pridėti Facebook paskyrą"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
+        android:textColor="@android:color/black" />
+    <Button
+        android:id="@+id/addFriendButton"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:text="Pridėti draugą"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
+        android:textColor="@android:color/black" />
+    <Button
+        android:id="@+id/getReportButton"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:text="Gauti ataskaitą"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
+        android:textColor="@android:color/black" />
+    <Button
+        android:id="@+id/askMoneyButton"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:text="Prašyti pinigų"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
+        android:textColor="@android:color/black" />
+    <Button
+        android:id="@+id/payButton"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:text="Pay"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
+        android:textColor="@android:color/black" />
+</LinearLayout>

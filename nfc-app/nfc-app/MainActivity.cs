@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace nfc_app
 {
-    [Activity(Label = "MonoDroid BeamDemo", MainLauncher = true)]
+    [Activity(Label = "MonoDroid BeamDemo", MainLauncher = false)]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()

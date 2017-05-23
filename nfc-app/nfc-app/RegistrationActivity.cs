@@ -12,13 +12,13 @@ using Android.Widget;
 
 namespace nfc_app
 {
-    [Activity(Label = "Prisijungimas", MainLauncher = false)]
-    class LoginActivity : Activity
+    [Activity(Label = "RegistrationActivity", MainLauncher = true)]
+    public class RegistrationActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            this.SetContentView(Resource.Layout.Login);
+            SetContentView(Resource.Layout.Account);
         }
     }
 }

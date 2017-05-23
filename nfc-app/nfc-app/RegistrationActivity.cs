@@ -15,6 +15,10 @@ namespace nfc_app
     [Activity(Label = "RegistrationActivity", MainLauncher = true)]
     public class RegistrationActivity : Activity
     {
+        private EditText _edtEmailInput;
+        private EditText _edtPasswordInput;
+        private EditText _edtPasswordConfimInput;
+        private Button _btnCreateAccount;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

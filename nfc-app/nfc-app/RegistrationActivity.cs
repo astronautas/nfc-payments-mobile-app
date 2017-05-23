@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace nfc_app
 {
-    [Activity(Label = "RegistrationActivity", MainLauncher = true)]
+    [Activity(Label = "RegistrationActivity", MainLauncher = false)]
     public class RegistrationActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

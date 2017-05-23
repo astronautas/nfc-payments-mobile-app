@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace nfc_app
 {
-    [Activity(Label = "MonoDroid BeamDemo", MainLauncher = false)]
+    [Activity(MainLauncher = true)]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()
@@ -28,7 +28,7 @@ namespace nfc_app
         {
             base.OnCreate(savedInstanceState);
             this.SetContentView(Resource.Layout.Main);
-
+            ActionBar.Hide();
             mInfoText = FindViewById<TextView>(Resource.Id.textView);
             // Check for available NFC Adapter
             mNfcAdapter = NfcAdapter.GetDefaultAdapter(this);

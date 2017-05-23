@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net;
-using System.Net.Http;
-using System.IO;
 
 using Android.App;
 using Android.Content;
@@ -25,11 +22,9 @@ namespace nfc_app
         private EditText _passwordInput;
 
         private string _tag = "_myapp";
-        private static readonly HttpClient client = new HttpClient();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            Log.Warn(_tag, "this is an info message");
             base.OnCreate(savedInstanceState);
             this.SetContentView(Resource.Layout.Login);
 
@@ -38,29 +33,26 @@ namespace nfc_app
 
             _loginButton = FindViewById<Button>(Resource.Id.loginButton);
             _loginButton.Click += (o, e) => Login();
+
+            _emailInput = FindViewById<EditText>(Resource.Id.emailInput);
+            _passwordInput = FindViewById<EditText>(Resource.Id.passwordInput);
         }
 
         protected void Login()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://thawing-ocean-8598.herokuapp.com/login");
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            string email = _emailInput.Text == string.Empty ? "-" : _emailInput.Text;
+            string password = _passwordInput.Text == string.Empty ? "-" : _passwordInput.Text;
+            //check the input
+            string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\"}} }}", email, password);
+            try
             {
-                string json = "{ \"user\": { \"email\":\"dorkx@gmail.com\", \"password\":\"123123123\"} }";
-
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
+                string response = Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json);
+                StartActivity(typeof(UserMainActivity));   
             }
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            catch(Exception ex)
             {
-                var result = streamReader.ReadToEnd();
-                Log.Info(_tag, "Response string: " + result);
-                Log.Warn(_tag, "Opa");
+                Log.Warn(_tag, ex.Message);
+                //show message window that it failed
             }
         }
     }

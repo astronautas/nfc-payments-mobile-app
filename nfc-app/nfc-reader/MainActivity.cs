@@ -1,18 +1,16 @@
-﻿using System;
-using System.Text;
-using Android.App;
+﻿using Android.App;
+using Android.Widget;
+using Android.OS;
 using Android.Nfc;
+using System;
+using Android.Views;
 using Android.Content;
 using Android.Provider;
-using Android.Runtime;
-using Android.OS;
-using Android.Text.Format;
-using Android.Views;
-using Android.Widget;
+using System.Text;
 
-namespace nfc_app
+namespace nfc_reader
 {
-    [Activity(MainLauncher = false)]
+    [Activity(Label = "nfc_reader", MainLauncher = true, Icon = "@drawable/icon")]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()
@@ -48,7 +46,7 @@ namespace nfc_app
         public NdefMessage CreateNdefMessage(NfcEvent evt)
         {
             DateTime time = DateTime.Now;
-            var text = ("Beam me up!\n\n" +                                     //TEXT TO SEND
+            var text = ("Beam me up!\n\n" +
                            "Beam Time: " + time.ToString("HH:mm:ss"));
             NdefMessage msg = new NdefMessage(
             new NdefRecord[] { CreateMimeRecord (
@@ -117,12 +115,12 @@ namespace nfc_app
 
         void ProcessIntent(Intent intent)
         {
-            IParcelable[] rawMsgs = intent.GetParcelableArrayExtra(                     //WHERE SENT TEXT IS RECEIVED
+            IParcelable[] rawMsgs = intent.GetParcelableArrayExtra(
                 NfcAdapter.ExtraNdefMessages);
             // only one message sent during the beam
             NdefMessage msg = (NdefMessage)rawMsgs[0];
             // record 0 contains the MIME type, record 1 is the AAR, if present
-            mInfoText.Text = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());     //WHAT TO DO WITH SENT DATA
+            mInfoText.Text = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());
         }
 
         public NdefRecord CreateMimeRecord(String mimeType, byte[] payload)
@@ -132,32 +130,6 @@ namespace nfc_app
                 NdefRecord.TnfMimeMedia, mimeBytes, new byte[0], payload);
             return mimeRecord;
         }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            // If NFC is not available, we won't be needing this menu
-            if (mNfcAdapter == null)
-            {
-                return base.OnCreateOptionsMenu(menu);
-            }
-            MenuInflater inflater = MenuInflater;
-            inflater.Inflate(Resource.Menu.Options, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.menu_settings:
-                    Intent intent = new Intent(Settings.ActionNfcsharingSettings);
-                    StartActivity(intent);
-                    return true;
-                default:
-                    return base.OnOptionsItemSelected(item);
-            }
-        }
     }
 }
-
 

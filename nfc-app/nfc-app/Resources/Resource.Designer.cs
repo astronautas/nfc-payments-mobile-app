@@ -67,6 +67,7 @@ namespace nfc_app
 			public const int btnCreateAccount = 2131099652;
 			
 			// aapt resource value: 0x7f060001
+
 			public const int edtEmailInput = 2131099649;
 			
 			// aapt resource value: 0x7f060003
@@ -83,6 +84,29 @@ namespace nfc_app
 			
 			// aapt resource value: 0x7f060000
 			public const int txtAccount = 2131099648;
+
+			public const int emailInput = 2131099649;
+			
+			// aapt resource value: 0x7f060003
+			public const int loginButton = 2131099651;
+			
+			// aapt resource value: 0x7f060000
+			public const int loginText = 2131099648;
+			
+			// aapt resource value: 0x7f060007
+			public const int menu_settings = 2131099655;
+			
+			// aapt resource value: 0x7f060005
+			public const int noAccText = 2131099653;
+			
+			// aapt resource value: 0x7f060002
+			public const int passwordInput = 2131099650;
+			
+			// aapt resource value: 0x7f060004
+			public const int signupButton = 2131099652;
+			
+			// aapt resource value: 0x7f060006
+			public const int textView = 2131099654;
 			
 			static Id()
 			{
@@ -98,7 +122,11 @@ namespace nfc_app
 		{
 			
 			// aapt resource value: 0x7f030000
+
 			public const int Account = 2130903040;
+      
+			public const int Login = 2130903040;
+
 			
 			// aapt resource value: 0x7f030001
 			public const int Main = 2130903041;

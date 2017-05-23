@@ -38,7 +38,7 @@ namespace nfc_app
             _passwordInput = FindViewById<EditText>(Resource.Id.passwordInput);
         }
 
-        protected void Login()
+        protected async void Login()
         {
             string email = _emailInput.Text == string.Empty ? "-" : _emailInput.Text;
             string password = _passwordInput.Text == string.Empty ? "-" : _passwordInput.Text;
@@ -46,7 +46,7 @@ namespace nfc_app
             string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\"}} }}", email, password);
             try
             {
-                string response = Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json);
                 StartActivity(typeof(UserMainActivity));   
             }
             catch(Exception ex)

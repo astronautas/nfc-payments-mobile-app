@@ -10,10 +10,11 @@ using Android.Text.Format;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = false)]
+    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()
@@ -176,7 +177,7 @@ namespace nfc_app
             string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", _nfcReaderId, token);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
                 OpenDialog();
             }
             catch (Exception ex)

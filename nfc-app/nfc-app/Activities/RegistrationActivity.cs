@@ -10,10 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(Label = "RegistrationActivity", MainLauncher = true)]
+    [Activity(Label = "RegistrationActivity", MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     public class RegistrationActivity : Activity
     {
         private EditText _edtEmailInput;
@@ -62,7 +63,7 @@ namespace nfc_app
             string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\",  \"password_confirmation\":\"{2}\"}} }}", email, password, passwordConfirmation);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/register", json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/register", json, null);
                 StartActivity(typeof(UserMainActivity));
             }
             catch (Exception ex)

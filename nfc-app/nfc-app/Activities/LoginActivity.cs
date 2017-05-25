@@ -9,11 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 using Android.Util;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = false)]
+    [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     class LoginActivity : Activity
     {
         private Button _createUserButton;
@@ -40,22 +41,27 @@ namespace nfc_app
 
         protected async void Login()
         {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            ProgressDialog progressDiag = new ProgressDialog();
+            progressDiag.Show(transaction, "dialog fragment");
+
             string email = _emailInput.Text == string.Empty ? "-" : _emailInput.Text;
             string password = _passwordInput.Text == string.Empty ? "-" : _passwordInput.Text;
             //check the input
             string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\"}} }}", email, password);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json, null);
                 if (response != string.Empty && response.Contains("auth_token"))
                 {
                     string temp = response.Split(':')[1].Trim();
                     string token = temp.Substring(1, temp.Length - 3);
                     Log.Warn(_tag, token);
-                    //User.CreateUser(email, password, token);
-                    //bybi man i aki, nes nx negalima statiniu objektu tarp activities perdavineti
+                    User user = new User(email, password, token);
 
-                    StartActivity(typeof(UserMainActivity));
+                    var userMainActivity = new Intent(this, typeof(UserMainActivity));
+                    userMainActivity.PutExtra("User", Json.Serialize(user));
+                    StartActivity(userMainActivity);
                 }
                 else
                 {
@@ -65,8 +71,20 @@ namespace nfc_app
             catch(Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
+                OpenDialog(null, ex.Message);
                 //show message window that it failed
             }
+            finally
+            {
+                progressDiag.Dismiss();
+            }
+        }
+
+        private void OpenDialog(Type activity, string msg)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            NotificationDialog notificationDialog = new NotificationDialog(activity, msg);
+            notificationDialog.Show(transaction, "dialog fragment");
         }
     }
 }

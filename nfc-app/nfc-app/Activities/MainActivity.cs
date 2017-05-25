@@ -14,7 +14,7 @@ using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()
@@ -56,7 +56,7 @@ namespace nfc_app
             var text = ("Sending a TOKEN here");
             NdefMessage msg = new NdefMessage(
             new NdefRecord[] { CreateMimeRecord (
-                "application/com.example.android.beam", Encoding.UTF8.GetBytes (text))
+                "application/nfc_app.nfc_app", Encoding.UTF8.GetBytes (text))
 			/**
 			* The Android Application Record (AAR) is commented out. When a device
 			* receives a push with an AAR in it, the application specified in the AAR
@@ -177,7 +177,7 @@ namespace nfc_app
             string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", _nfcReaderId, token);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
+               // string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
                 OpenDialog();
             }
             catch (Exception ex)

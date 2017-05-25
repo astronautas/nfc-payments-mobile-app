@@ -14,7 +14,7 @@ using Android.Util;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     class LoginActivity : Activity
     {
         private Button _createUserButton;

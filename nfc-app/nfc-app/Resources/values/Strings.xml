@@ -7,4 +7,9 @@
         message.</string>
     <string name="menu_settings">Android Beam settings</string>
     <string name="Message"></string>
+    <string name="cardTypes">Kortelė</string>
+    <string-array name="cardArray">
+      <item>MasterCard</item>
+      <item>Visa</item>
+    </string-array>
 </resources>

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCardActivity.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -79,6 +80,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Pay.axml" />
     <AndroidResource Include="Resources\layout\Notification.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AddCard.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

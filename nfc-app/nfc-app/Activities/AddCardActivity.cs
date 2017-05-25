@@ -17,6 +17,7 @@ namespace nfc_app
     [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     class AddCardActivity : Activity
     {
+        private User _user;
 
         private string _tag = "_myapp";
 
@@ -38,6 +39,12 @@ namespace nfc_app
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
 
+            string userJson = Intent.GetStringExtra("User") ?? "";
+            if (userJson != string.Empty)
+            {
+                _user = Json.Deserialize<User>(userJson);
+            }
+
             _cardNrInput = FindViewById<EditText>(Resource.Id.cardNrInput);
             _cardCvcInput = FindViewById<EditText>(Resource.Id.cardCvcInput);
             _cardMonthInput = FindViewById<EditText>(Resource.Id.cardMonthInput);
@@ -54,19 +61,13 @@ namespace nfc_app
 
             //check the input
 
-            string json = string.Format("{{ \"card\": {{ \"number\":\"{0}\", \"cvc\":\"{1}\", \"expiration\":\"{2}\\{3}\"}} }}", _cardNrInput.Text, _cardCvcInput.Text, _cardMonthInput.Text, _cardYearInput.Text);
+            string json = string.Format("{{ \"card\": {{ \"number\":\"{0}\", \"cvc\":\"{1}\", \"exp_year\":\"{2}\", \"exp_month\":\"{2}\"}} }}", _cardNrInput.Text, _cardCvcInput.Text, _cardYearInput.Text, _cardMonthInput.Text);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/add-card", json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/add-card", json, _user.stripeToken);
                 if (response != string.Empty && response.Contains("Card added"))
                 {
-                    // string temp = response.Split(':')[1].Trim();
-                    //string token = temp.Substring(1, temp.Length - 3);
-                    //Log.Warn(_tag, token);
-                    //User.CreateUser(email, password, token);
-
-                    //StartActivity(typeof(UserMainActivity));
-                    OpenDialog("Maldec pacanas!");
+                    OpenDialog(typeof(UserMainActivity), "Koretelė sėkmingai pridėta!");
                 }
                 else
                 {
@@ -77,8 +78,8 @@ namespace nfc_app
             catch (Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
-                OpenDialog(ex.Message);
-                //show message window that it failed
+                Log.Warn(_tag, _user.stripeToken);
+                OpenDialog(null, ex.Message);
             }
             finally
             {
@@ -86,10 +87,10 @@ namespace nfc_app
             }
         }
 
-        private void OpenDialog(string msg)
+        private void OpenDialog(Type activity, string msg)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            NotificationDialog notificationDialog = new NotificationDialog(typeof(UserMainActivity), msg);
+            NotificationDialog notificationDialog = new NotificationDialog(activity, msg);
             notificationDialog.Show(transaction, "dialog fragment");
         }
     }

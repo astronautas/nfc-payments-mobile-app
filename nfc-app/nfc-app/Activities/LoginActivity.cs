@@ -51,16 +51,17 @@ namespace nfc_app
             string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\"}} }}", email, password);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json, null);
                 if (response != string.Empty && response.Contains("auth_token"))
                 {
                     string temp = response.Split(':')[1].Trim();
                     string token = temp.Substring(1, temp.Length - 3);
                     Log.Warn(_tag, token);
-                    //User.CreateUser(email, password, token);
+                    User user = new User(email, password, token);
 
-                    //StartActivity(typeof(UserMainActivity));
-                    OpenDialog(typeof(UserMainActivity), "Sup nigga!");
+                    var userMainActivity = new Intent(this, typeof(UserMainActivity));
+                    userMainActivity.PutExtra("User", Json.Serialize(user));
+                    StartActivity(userMainActivity);
                 }
                 else
                 {
@@ -70,7 +71,7 @@ namespace nfc_app
             catch(Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
-                OpenDialog(typeof(LoginActivity), ex.Message);
+                OpenDialog(null, ex.Message);
                 //show message window that it failed
             }
             finally

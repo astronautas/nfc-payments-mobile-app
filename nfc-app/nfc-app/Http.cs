@@ -6,14 +6,17 @@ namespace nfc_app
 {
     class Http
     {
-        public static async Task<string> Request(string url, string json)
+        public static async Task<string> Request(string url, string json, string token)
         {
             try
             {
-                //var result = new Task<string>();
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
+                if(token != null)
+                {
+                    httpWebRequest.Headers["Authorization"] = token;
+                }
 
                 using (var streamWriter = new StreamWriter(await httpWebRequest.GetRequestStreamAsync()))
                 {

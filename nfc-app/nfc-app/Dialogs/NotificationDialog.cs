@@ -43,8 +43,11 @@ namespace nfc_app
         private void ProceedButtonClicked()
         {
             Dismiss();
-            Intent intent = new Intent(this.Activity, activityType);
-            StartActivity(intent);
+            if(activityType != null)
+            {
+                Intent intent = new Intent(this.Activity, activityType);
+                StartActivity(intent);
+            }
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)

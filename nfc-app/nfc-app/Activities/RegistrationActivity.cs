@@ -21,7 +21,7 @@ namespace nfc_app
         private EditText _edtPasswordInput;
         private EditText _edtPasswordConfimInput;
         private Button _btnCreateAccount;
-
+        private string _spinnerValue;
         private string _tag = "_myapp";
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -49,28 +49,45 @@ namespace nfc_app
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-
-            string toast = string.Format("Your type is {0}", spinner.GetItemAtPosition(e.Position));
-            Toast.MakeText(this, toast, ToastLength.Long).Show();
+            _spinnerValue = spinner.GetItemAtPosition(e.Position).ToString();
         }
 
         protected async void CreateAccount()
         {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            ProgressDialog progressDiag = new ProgressDialog();
+            progressDiag.Cancelable = false;
+            progressDiag.Show(transaction, "dialog fragment");
+
             string email = _edtEmailInput.Text == string.Empty ? "-" : _edtEmailInput.Text;
             string password = _edtPasswordInput.Text == string.Empty ? "-" : _edtPasswordInput.Text;
             string passwordConfirmation = _edtPasswordConfimInput.Text == string.Empty ? "-" : _edtPasswordConfimInput.Text;
+            string group = _spinnerValue == "Juridinis" ? "seller" : "buyer";
             //check the input
-            string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\",  \"password_confirmation\":\"{2}\"}} }}", email, password, passwordConfirmation);
+            string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\",  \"password_confirmation\":\"{2}\", \"group\":\"{3}\"}} }}", email, password, passwordConfirmation, group);
             try
             {
+                // string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc");
+                // NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
                 string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/register", json, null);
-                StartActivity(typeof(UserMainActivity));
+                OpenDialog(typeof(LoginActivity), "Sekmingai prisiregistravote!");
             }
             catch (Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
                 //show message window that it failed
             }
+            finally
+            {
+                progressDiag.Dismiss();
+            }
+        }
+
+        private void OpenDialog(Type activity, string msg)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            NotificationDialog notificationDialog = new NotificationDialog(activity, msg);
+            notificationDialog.Show(transaction, "dialog fragment");
         }
 
     }

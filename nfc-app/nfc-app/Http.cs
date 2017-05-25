@@ -38,5 +38,20 @@ namespace nfc_app
                 throw;
             }
         }
+
+        //How this works?
+        public static string GetRequest(string url)
+        {
+            string html = "";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                html = reader.ReadToEnd();
+            }
+            return html;
+        } 
     }
 }

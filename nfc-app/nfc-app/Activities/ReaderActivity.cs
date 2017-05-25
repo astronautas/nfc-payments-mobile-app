@@ -19,7 +19,6 @@ namespace nfc_app
     {
         private EditText _edtPaymentAmount;
         private Button _btnMakePayment;
-        private string _nfcReaderId = "nfc8008";
 
         private string _tag = "_myapp";
 
@@ -28,22 +27,20 @@ namespace nfc_app
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Reader);
 
-            string token = Intent.GetStringExtra("Token") ?? "Data not available";
-
             _edtPaymentAmount = FindViewById<EditText>(Resource.Id.edtPaymentAmount);
 
             _btnMakePayment = FindViewById<Button>(Resource.Id.btnMakePayment);
-            _btnMakePayment.Click += (o, e) => MakePayment(token);
+            _btnMakePayment.Click += (o, e) => MakePayment();
         }
 
-        private async void MakePayment(string token)
+        private async void MakePayment()
         {
             string paymentAmount = _edtPaymentAmount.Text == string.Empty ? "-" : _edtPaymentAmount.Text;
-            //check the input
-            string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", _nfcReaderId, token);  
+            string nfcReaderId = NFCSettings.GetSettings(ApplicationContext, "nfc_id");
+            string json = string.Format("{{ \"nfc_id\": \"{0}\", \"amount\": \"{1}\"}}", nfcReaderId, paymentAmount);  
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/create-order", json, null);
                 OpenDialog();
             }
             catch (Exception ex)

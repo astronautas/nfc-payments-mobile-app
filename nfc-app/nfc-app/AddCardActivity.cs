@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = true)]
+    [Activity(MainLauncher = false)]
     class AddCardActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

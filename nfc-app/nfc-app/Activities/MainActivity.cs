@@ -25,7 +25,6 @@ namespace nfc_app
         NfcAdapter mNfcAdapter;
         TextView mInfoText;
         private const int MESSAGE_SENT = 1;
-        private string _nfcReaderId = "nfc8008";
 
         private string _tag = "_myapp";
 
@@ -163,21 +162,14 @@ namespace nfc_app
                     return base.OnOptionsItemSelected(item);
             }
         }
-        /*
-        private void OpenReaderActivity(string token)
-        {
-            var readerActivity = new Intent(this, typeof(ReaderActivity));
-            readerActivity.PutExtra("Token", token);
-            StartActivity(readerActivity);
-        }
-        */
 
         private async void MakePayment(string token)
         {
-            string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", _nfcReaderId, token);
+            string nfcReaderId = NFCSettings.GetSettings(ApplicationContext, "nfc_id");
+            string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", nfcReaderId, token);
             try
             {
-               // string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
                 OpenDialog();
             }
             catch (Exception ex)
@@ -190,7 +182,7 @@ namespace nfc_app
         private void OpenDialog()
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            NotificationDialog notificationDialog = new NotificationDialog(typeof(Beam), "Apmokejimas issiustas sekmingai!");
+            NotificationDialog notificationDialog = new NotificationDialog(typeof(ReaderActivity), "Apmokejimas issiustas sekmingai!"); //Change to SellerMainActivity
             notificationDialog.Show(transaction, "dialog fragment");
         }
     }

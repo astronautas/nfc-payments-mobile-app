@@ -14,7 +14,7 @@
     </string-array>
     <string name="userTypes">Paskyros tipas</string>
     <string-array name="usersArray">
-      <item>buyer</item>
-      <item>seller</item>
+      <item>Fizinis</item>
+      <item>Juridinis</item>
     </string-array>
 </resources>

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Content.PM;
 using Android.Util;
+using Newtonsoft.Json.Linq;
 
 namespace nfc_app
 {
@@ -54,14 +55,25 @@ namespace nfc_app
                 string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/login", json, null);
                 if (response != string.Empty && response.Contains("auth_token"))
                 {
-                    string temp = response.Split(':')[1].Trim();
-                    string token = temp.Substring(1, temp.Length - 3);
+                    //string temp = response.Split(':')[1].Trim();
+                    //string token = temp.Substring(1, temp.Length - 3);
+                    JObject dict = JObject.Parse(response);                     //NuGet packet: Newtonsoft.Json
+                    string token = dict["auth_token"].ToString();
+                    string group = dict["type"].ToString();
                     Log.Warn(_tag, token);
                     User user = new User(email, password, token);
 
-                    var userMainActivity = new Intent(this, typeof(UserMainActivity));
-                    userMainActivity.PutExtra("User", Json.Serialize(user));
-                    StartActivity(userMainActivity);
+                    Intent userActivity;
+                    if(group == "buyer")
+                    {
+                        userActivity = new Intent(this, typeof(UserMainActivity)); 
+                    }
+                    else
+                    {
+                        userActivity = new Intent(this, typeof(ReaderActivity));          //change to SellerMainActivity
+                    }
+                    userActivity.PutExtra("User", Json.Serialize(user));
+                    StartActivity(userActivity);
                 }
                 else
                 {

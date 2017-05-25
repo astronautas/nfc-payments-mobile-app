@@ -10,10 +10,11 @@ using Android.Text.Format;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = false)]
+    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()

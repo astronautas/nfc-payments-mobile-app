@@ -9,10 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = false)]
+    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     class UserMainActivity : Activity
     {
         private TextView _userEmailText;
@@ -28,6 +29,8 @@ namespace nfc_app
 
             _payButton = FindViewById<Button>(Resource.Id.payButton);
             _payButton.Click += (o, e) => StartActivity(typeof(PayActivity));
+
+            FindViewById<Button>(Resource.Id.openAddCardButton).Click += (o, e) => StartActivity(typeof(AddCardActivity));
         }
     }
 }

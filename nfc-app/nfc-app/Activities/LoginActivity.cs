@@ -9,11 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 using Android.Util;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = false)]
+    [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     class LoginActivity : Activity
     {
         private Button _createUserButton;
@@ -40,6 +41,10 @@ namespace nfc_app
 
         protected async void Login()
         {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            ProgressDialog progressDiag = new ProgressDialog();
+            progressDiag.Show(transaction, "dialog fragment");
+
             string email = _emailInput.Text == string.Empty ? "-" : _emailInput.Text;
             string password = _passwordInput.Text == string.Empty ? "-" : _passwordInput.Text;
             //check the input
@@ -53,9 +58,9 @@ namespace nfc_app
                     string token = temp.Substring(1, temp.Length - 3);
                     Log.Warn(_tag, token);
                     //User.CreateUser(email, password, token);
-                    //bybi man i aki, nes nx negalima statiniu objektu tarp activities perdavineti
 
-                    StartActivity(typeof(UserMainActivity));
+                    //StartActivity(typeof(UserMainActivity));
+                    OpenDialog(typeof(UserMainActivity), "Sup nigga!");
                 }
                 else
                 {
@@ -65,8 +70,20 @@ namespace nfc_app
             catch(Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
+                OpenDialog(typeof(LoginActivity), ex.Message);
                 //show message window that it failed
             }
+            finally
+            {
+                progressDiag.Dismiss();
+            }
+        }
+
+        private void OpenDialog(Type activity, string msg)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            NotificationDialog notificationDialog = new NotificationDialog(activity, msg);
+            notificationDialog.Show(transaction, "dialog fragment");
         }
     }
 }

@@ -7,17 +7,36 @@
     android:weightSum="100"
     android:minWidth="25px"
     android:minHeight="25px">
-    <TextView
-        android:text="Prisijungimas"
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_weight="30"
         android:layout_height="0dp"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:id="@+id/loginText" />
+        android:layout_weight="10"
+        android:background="@android:color/background_light"
+        android:weightSum="100"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <TextView
+            android:text="Kortelės tipas"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:id="@+id/cardTypeText" />
+        <Spinner
+            android:id="@+id/carTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent" 
+            android:background="@android:color/background_light"
+            android:prompt="@string/cardTypes"/>
+    </LinearLayout>
     <EditText
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
@@ -25,53 +44,32 @@
         android:theme="@android:style/Theme.DeviceDefault.Light"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:hint="El. Paštas"
+        android:hint="Kortelės savininkas"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/emailInput" />
+        android:id="@+id/cardOwnerNameInput" />
     <EditText
-        android:inputType="textPassword"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:gravity="center"
-        android:password="true"
         android:theme="@android:style/Theme.DeviceDefault.Light"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:hint="Slaptažodis"
+        android:hint="Kortelės numeris"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/passwordInput" />
+        android:id="@+id/cardNrInput" />
     <Button
-        android:id="@+id/loginButton"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:text="Prisijungti"
-        android:theme="@android:style/Theme.DeviceDefault.Light"
-        android:textColor="@android:color/black" />
-    <Button
-        android:id="@+id/signupButton"
+        android:id="@+id/addCardButton"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15"
-        android:text="Sukurti paskyrą"
+        android:text="Pririšti"
         android:theme="@android:style/Theme.DeviceDefault.Light"
         android:textColor="@android:color/black" />
-    <TextView
-        android:text="Neturi paskyros? Spausk čia"
-        android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="0dp"
-        android:textColor="@android:color/black"
-        android:gravity="center_horizontal"
-        android:textSize="14sp"
-        android:id="@+id/noAccText" />
 </LinearLayout>

@@ -13,7 +13,7 @@ using Android.Util;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = true)]
+    [Activity(MainLauncher = false)]
     class LoginActivity : Activity
     {
         private Button _createUserButton;

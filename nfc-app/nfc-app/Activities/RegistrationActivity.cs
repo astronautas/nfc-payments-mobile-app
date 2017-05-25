@@ -10,10 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(Label = "RegistrationActivity", MainLauncher = false)]
+    [Activity(Label = "RegistrationActivity", MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     public class RegistrationActivity : Activity
     {
         private EditText _edtEmailInput;

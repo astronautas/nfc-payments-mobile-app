@@ -55,7 +55,8 @@ namespace nfc_app
                 if (response != string.Empty && response.Contains("auth_token"))
                 {
                     string temp = response.Split(':')[1].Trim();
-                    string token = temp.Substring(1, temp.Length - 3);
+                    string token = temp.Substring(temp.IndexOf('"', 0, 2)+1, temp.IndexOf('"', 4)-1);
+                    
                     Log.Warn(_tag, token);
                     User user = new User(email, password, token);
 

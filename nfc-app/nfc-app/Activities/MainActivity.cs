@@ -14,7 +14,7 @@ using Android.Content.PM;
 
 namespace nfc_app
 {
-    [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Beam : Activity, NfcAdapter.ICreateNdefMessageCallback, NfcAdapter.IOnNdefPushCompleteCallback
     {
         public Beam()

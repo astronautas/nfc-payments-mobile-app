@@ -179,11 +179,11 @@ namespace nfc_app
 			// aapt resource value: 0x7f090010
 			public const int passwordInput = 2131296272;
 			
-			// aapt resource value: 0x7f090018
-			public const int pauFromBankButton = 2131296280;
-			
 			// aapt resource value: 0x7f090023
 			public const int payButton = 2131296291;
+			
+			// aapt resource value: 0x7f090018
+			public const int payFromBankButton = 2131296280;
 			
 			// aapt resource value: 0x7f09001a
 			public const int payFromMobileButton = 2131296282;

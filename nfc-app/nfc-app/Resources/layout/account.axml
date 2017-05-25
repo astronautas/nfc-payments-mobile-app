@@ -10,7 +10,7 @@
     <TextView
         android:text="Sukurti paskyrą"
         android:layout_width="match_parent"
-        android:layout_weight="40"
+        android:layout_weight="30"
         android:layout_height="0dp"
         android:textColor="@android:color/black"
         android:gravity="center"
@@ -57,6 +57,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/edtPasswordConfirmInput" />
+    <Spinner
+            android:id="@+id/spinUserTypes"
+            android:layout_width="match_parent"
+            android:layout_weight="10"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:theme="@android:style/Theme.DeviceDefault.Light"
+            android:prompt="@string/userTypes"/>
     <Button
         android:id="@+id/btnCreateAccount"
         android:layout_marginTop="50dp"

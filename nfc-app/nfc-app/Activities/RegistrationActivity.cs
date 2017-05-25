@@ -35,6 +35,23 @@ namespace nfc_app
             _edtEmailInput = FindViewById<EditText>(Resource.Id.edtEmailInput);
             _edtPasswordInput = FindViewById<EditText>(Resource.Id.edtPasswordInput);
             _edtPasswordConfimInput = FindViewById<EditText>(Resource.Id.edtPasswordConfirmInput);
+
+            Spinner spinner = FindViewById<Spinner>(Resource.Id.spinUserTypes);
+
+            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
+            var adapter = ArrayAdapter.CreateFromResource(
+                    this, Resource.Array.usersArray, Android.Resource.Layout.SimpleSpinnerItem);
+
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinner.Adapter = adapter;
+        }
+
+        private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            Spinner spinner = (Spinner)sender;
+
+            string toast = string.Format("Your type is {0}", spinner.GetItemAtPosition(e.Position));
+            Toast.MakeText(this, toast, ToastLength.Long).Show();
         }
 
         protected async void CreateAccount()

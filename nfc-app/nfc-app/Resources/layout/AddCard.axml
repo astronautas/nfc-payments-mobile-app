@@ -31,8 +31,8 @@
             android:id="@+id/carTypeSpinner"
             android:layout_width="match_parent"
             android:layout_weight="50"
-            android:layout_height="match_parent" 
-            android:background="@android:color/background_light"
+            android:layout_height="match_parent"
+            android:theme="@android:style/Theme.DeviceDefault.Light"
             android:prompt="@string/cardTypes"/>
     </LinearLayout>
     <EditText
@@ -61,6 +61,52 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/cardNrInput" />
+    <LinearLayout
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="10dp"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="10"
+      android:background="@android:color/background_light"
+      android:weightSum="100"
+      android:minWidth="25px"
+      android:minHeight="25px">
+      <TextView
+          android:text="Galiojimo data"
+          android:layout_width="match_parent"
+          android:layout_weight="30"
+          android:layout_height="match_parent"
+          android:textColor="@android:color/black"
+          android:gravity="center_vertical"
+          android:textSize="14sp"/>
+      <EditText
+          android:inputType="number"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="30"
+          android:gravity="center"
+          android:theme="@android:style/Theme.DeviceDefault.Light"
+          android:textColor="@android:color/black"
+          android:textSize="14sp"
+          android:hint="Mėnuo"
+          android:layout_marginLeft="1dp"
+          android:layout_marginRight="1dp"
+          android:id="@+id/cardMonthInput" />
+      <EditText
+          android:inputType="number"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="40"
+          android:gravity="center"
+          android:theme="@android:style/Theme.DeviceDefault.Light"
+          android:textColor="@android:color/black"
+          android:textSize="14sp"
+          android:hint="Metai"
+          android:layout_marginLeft="1dp"
+          android:layout_marginRight="1dp"
+          android:id="@+id/cardYearInput" />
+    </LinearLayout>
     <Button
         android:id="@+id/addCardButton"
         android:layout_marginTop="10dp"

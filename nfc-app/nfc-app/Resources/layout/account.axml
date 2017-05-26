@@ -64,8 +64,10 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:prompt="@string/userTypes"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"/>
+        android:layout_marginRight="100dp" />
     <Button
         android:id="@+id/btnCreateAccount"
         android:layout_marginTop="50dp"

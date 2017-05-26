@@ -26,7 +26,7 @@ namespace nfc_app
         public static string GetSettings(Context context, string settingName)
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(context);
-            return prefs.GetString(settingName, "");
+            return prefs.GetString(settingName, "no-id");
         }
     }
 }

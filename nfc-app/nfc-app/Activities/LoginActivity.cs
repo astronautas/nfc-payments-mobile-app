@@ -63,6 +63,13 @@ namespace nfc_app
                     Log.Warn(_tag, token);
                     User user = new User(email, password, token);
 
+
+                    if(NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")
+                    {
+                        string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc", token);
+                        NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
+                    }
+
                     Intent userActivity;
                     if(group == "buyer")
                     {

@@ -70,8 +70,6 @@ namespace nfc_app
                 
                 string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/register", json, null);
 
-                string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc");
-                NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
                 OpenDialog(typeof(LoginActivity), "Sekmingai prisiregistravote!");
             }
             catch (Exception ex)

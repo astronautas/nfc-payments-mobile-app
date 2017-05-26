@@ -84,7 +84,6 @@ namespace nfc_app
             {
                 Log.Warn(_tag, ex.Message);
                 OpenDialog(null, ex.Message);
-                //show message window that it failed
             }
             finally
             {

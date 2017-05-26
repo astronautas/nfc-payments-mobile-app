@@ -82,9 +82,6 @@
     <AndroidResource Include="Resources\layout\Login.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\UserMain.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\Reader.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -96,6 +93,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Progress.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\UserMain.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

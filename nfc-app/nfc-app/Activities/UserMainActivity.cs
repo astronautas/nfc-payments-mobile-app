@@ -40,7 +40,9 @@ namespace nfc_app
             _payButton = FindViewById<Button>(Resource.Id.payButton);
             _payButton.Click += (o, e) => OpnePayActivity();
 
-            FindViewById<Button>(Resource.Id.openAddCardButton).Click += (o, e) => OpenAddCardActivity();
+            Button openAddCardButton = FindViewById<Button>(Resource.Id.openAddCardButton);
+            openAddCardButton.Click += (o, e) => OpenAddCardActivity();
+            openAddCardButton.Enabled = _user.group == "buyer" ? true : false;
         }
 
         private void OpenAddCardActivity()
@@ -52,7 +54,15 @@ namespace nfc_app
 
         private void OpnePayActivity()
         {
-            var payAct = new Intent(this, typeof(PayActivity));
+            Intent payAct;
+            if (_user.group == "buyer")
+            {
+                payAct = new Intent(this, typeof(PayActivity));
+            }
+            else
+            {
+                payAct = new Intent(this, typeof(ReaderActivity));
+            }
             payAct.PutExtra("User", Json.Serialize(_user));
             StartActivity(payAct);
         }

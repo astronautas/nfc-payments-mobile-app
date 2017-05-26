@@ -62,6 +62,7 @@ namespace nfc_app
                     string group = dict["type"].ToString();
                     Log.Warn(_tag, "tocken: " + token);
                     User user = new User(email, password, token);
+                    user.group = group;
 
 
                     if(group == "seller" && NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")

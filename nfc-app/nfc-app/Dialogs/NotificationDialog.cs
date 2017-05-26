@@ -19,11 +19,13 @@ namespace nfc_app
 
         private Type activityType;
         private string message;
+        private string param;
 
-        public NotificationDialog(Type activityIn, string messageIn)
+        public NotificationDialog(Type activityIn, string messageIn, string paramIn = "")
         {
             activityType = activityIn;
             message = messageIn;
+            param = paramIn;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -46,6 +48,10 @@ namespace nfc_app
             if(activityType != null)
             {
                 Intent intent = new Intent(this.Activity, activityType);
+                if(param != "")
+                {
+                    intent.PutExtra("param", param);
+                }
                 StartActivity(intent);
             }
         }

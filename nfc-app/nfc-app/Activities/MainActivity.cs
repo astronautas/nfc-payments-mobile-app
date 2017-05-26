@@ -28,6 +28,7 @@ namespace nfc_app
         private const int MESSAGE_SENT = 1;
 
         private string _tag = "_myapp";
+        private string passedToken;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -140,10 +141,11 @@ namespace nfc_app
         private async void MakePayment(string token)
         {
             string nfcReaderId = NFCSettings.GetSettings(ApplicationContext, "nfc_id");
+            string sellerToken = NFCSettings.GetSettings(ApplicationContext, "sellerToken");
             string json = string.Format("{{ \"nfc_id\": \"{0}\", \"buyer_auth_token\": \"{1}\"}}", nfcReaderId, token);
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, null);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/pay-order", json, sellerToken);
                 OpenDialog();
             }
             catch (Exception ex)

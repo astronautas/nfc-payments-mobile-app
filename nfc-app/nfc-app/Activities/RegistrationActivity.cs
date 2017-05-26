@@ -67,9 +67,11 @@ namespace nfc_app
             string json = string.Format("{{ \"user\": {{ \"email\":\"{0}\", \"password\":\"{1}\",  \"password_confirmation\":\"{2}\", \"group\":\"{3}\"}} }}", email, password, passwordConfirmation, group);
             try
             {
-                // string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc");
-                // NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
+                
                 string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/register", json, null);
+
+                string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc");
+                NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
                 OpenDialog(typeof(LoginActivity), "Sekmingai prisiregistravote!");
             }
             catch (Exception ex)

@@ -68,6 +68,7 @@
     <Compile Include="Json.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NFCSettings.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Dialogs\NotificationDialog.cs" />
     <Compile Include="Activities\UserMainActivity.cs" />

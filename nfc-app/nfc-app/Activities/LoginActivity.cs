@@ -74,14 +74,7 @@ namespace nfc_app
                     }
 
                     Intent userActivity;
-                    if(group == "buyer")
-                    {
-                        userActivity = new Intent(this, typeof(UserMainActivity)); 
-                    }
-                    else
-                    {
-                        userActivity = new Intent(this, typeof(ReaderActivity));          //change to SellerMainActivity
-                    }
+                    userActivity = new Intent(this, typeof(UserMainActivity)); 
                     userActivity.PutExtra("User", Json.Serialize(user));
                     StartActivity(userActivity);
                 }

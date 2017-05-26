@@ -77,7 +77,7 @@ namespace nfc_app
             catch (Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
-                //show message window that it failed
+                OpenDialog(null, ex.Message);
             }
             finally
             {

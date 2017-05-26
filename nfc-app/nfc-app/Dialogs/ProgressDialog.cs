@@ -27,6 +27,7 @@ namespace nfc_app
             Dialog.Window.RequestFeature(WindowFeatures.NoTitle);
             base.OnActivityCreated(savedInstanceState);
             Dialog.Window.Attributes.WindowAnimations = Resource.Style.dialog_animation;
+            base.Cancelable = false;
         }
     }
 }

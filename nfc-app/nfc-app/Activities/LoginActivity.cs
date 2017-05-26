@@ -60,13 +60,15 @@ namespace nfc_app
                     JObject dict = JObject.Parse(response);                     //NuGet packet: Newtonsoft.Json
                     string token = dict["auth_token"].ToString();
                     string group = dict["type"].ToString();
-                    Log.Warn(_tag, token);
+                    Log.Warn(_tag, "tocken: " + token);
                     User user = new User(email, password, token);
 
 
-                    if(NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")
+                    if(group == "seller" && NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")
                     {
+                        Log.Warn(_tag, "not yet registered");
                         string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc", token);
+                        Log.Warn(_tag, "nfc id: " + nfc_id);
                         NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
                     }
 

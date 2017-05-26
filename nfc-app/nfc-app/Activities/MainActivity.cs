@@ -22,6 +22,7 @@ namespace nfc_app
             mHandler = new MyHandler(HandlerHandleMessage);
         }
 
+        private User _user;
         NfcAdapter mNfcAdapter;
         TextView mInfoText;
         private const int MESSAGE_SENT = 1;
@@ -35,6 +36,13 @@ namespace nfc_app
             mInfoText = FindViewById<TextView>(Resource.Id.textView);
             // Check for available NFC Adapter
             mNfcAdapter = NfcAdapter.GetDefaultAdapter(this);
+
+            string userJson = Intent.GetStringExtra("User") ?? "";
+            if (userJson != string.Empty)
+            {
+                _user = Json.Deserialize<User>(userJson);
+                Log.Warn(_tag, "user tok in beam: " + _user.stripeToken);
+            }
 
             if (mNfcAdapter == null)
             {
@@ -52,7 +60,7 @@ namespace nfc_app
         public NdefMessage CreateNdefMessage(NfcEvent evt)
         {
             DateTime time = DateTime.Now;
-            var text = ("Sending a TOKEN here");
+            var text = _user.stripeToken;
             NdefMessage msg = new NdefMessage(
             new NdefRecord[] { CreateMimeRecord (
                 "application/nfc_app.nfc_app", Encoding.UTF8.GetBytes (text))

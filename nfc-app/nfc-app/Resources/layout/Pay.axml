@@ -28,7 +28,7 @@
         android:layout_weight="15"
         android:text="Apmokėti banko kortele"
         android:theme="@android:style/Theme.DeviceDefault.Light"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"/>
     <Button
         android:id="@+id/payFromVirtualButton"
         android:layout_marginTop="10dp"
@@ -39,7 +39,8 @@
         android:layout_weight="15"
         android:text="Apmokėti iš virtualios sąskaitos"
         android:theme="@android:style/Theme.DeviceDefault.Light"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:enabled="false"/>
     <Button
         android:id="@+id/payFromMobileButton"
         android:layout_marginTop="10dp"
@@ -50,5 +51,6 @@
         android:layout_weight="15"
         android:text="Apmokėti iš mobiliojo ryšio sąskaitos"
         android:theme="@android:style/Theme.DeviceDefault.Light"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:enabled="false"/>
 </LinearLayout>

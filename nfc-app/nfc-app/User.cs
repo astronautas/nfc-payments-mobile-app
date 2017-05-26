@@ -15,6 +15,7 @@ namespace nfc_app
         [NonSerialized]
         public string password;
         public string stripeToken;
+        public string group;
         [NonSerialized]
         List<User> friends;
 

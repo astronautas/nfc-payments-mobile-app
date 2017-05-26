@@ -20,12 +20,20 @@ namespace nfc_app
         private EditText _edtPaymentAmount;
         private Button _btnMakePayment;
 
+        private User _seller;
+
         private string _tag = "_myapp";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Reader);
+
+            string userJson = Intent.GetStringExtra("User") ?? "";
+            if (userJson != string.Empty)
+            {
+                _seller = Json.Deserialize<User>(userJson);
+            }
 
             _edtPaymentAmount = FindViewById<EditText>(Resource.Id.edtPaymentAmount);
 

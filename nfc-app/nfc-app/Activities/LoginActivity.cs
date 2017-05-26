@@ -67,9 +67,11 @@ namespace nfc_app
                     if(group == "seller" && NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")
                     {
                         Log.Warn(_tag, "not yet registered");
-                        string nfc_id = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc", token);
-                        Log.Warn(_tag, "nfc id: " + nfc_id);
+                        string sellerInfo = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc", token);
+                        JObject seller = JObject.Parse(sellerInfo);
+                        string nfc_id = seller["device_id"].ToString();
                         NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
+                        Log.Warn(_tag, "nfc id: " + nfc_id);
                     }
 
                     Intent userActivity;

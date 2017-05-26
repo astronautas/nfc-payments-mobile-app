@@ -44,25 +44,34 @@ namespace nfc_app
 
         private async void MakePayment()
         {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            ProgressDialog progressDiag = new ProgressDialog();
+            progressDiag.Show(transaction, "dialog fragment");
+
             string paymentAmount = _edtPaymentAmount.Text == string.Empty ? "-" : _edtPaymentAmount.Text;
             string nfcReaderId = NFCSettings.GetSettings(ApplicationContext, "nfc_id");
             string json = string.Format("{{ \"nfc_id\": \"{0}\", \"amount\": \"{1}\"}}", nfcReaderId, paymentAmount);  
             try
             {
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/create-order", json, null);
-                OpenDialog();
+                Log.Warn(_tag, json);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/create-order", json, _seller.stripeToken);
+                OpenDialog(typeof(Beam), "Apmokejimas sekmnigas");
             }
             catch (Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
-                //show message window that it failed
+                OpenDialog(null, ex.Message);
+            }
+            finally
+            {
+                progressDiag.Dismiss();
             }
         }
 
-        private void OpenDialog()
+        private void OpenDialog(Type activity, string msg)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            NotificationDialog notificationDialog = new NotificationDialog(typeof(Beam), "Apmokejimas issiustas sekmingai!");
+            NotificationDialog notificationDialog = new NotificationDialog(activity, msg);
             notificationDialog.Show(transaction, "dialog fragment");
         }
     }

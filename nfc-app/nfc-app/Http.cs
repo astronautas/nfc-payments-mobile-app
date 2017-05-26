@@ -44,8 +44,8 @@ namespace nfc_app
         {
             string html = "";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.ContentType = "application/json";
-            //request.Method = "GET";
+            //request.ContentType = "application/json";
+            request.Method = "GET";
 
             if (token != null)
             {

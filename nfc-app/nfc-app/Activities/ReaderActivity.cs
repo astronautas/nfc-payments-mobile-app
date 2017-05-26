@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Newtonsoft.Json.Linq;
 
 namespace nfc_app
 {

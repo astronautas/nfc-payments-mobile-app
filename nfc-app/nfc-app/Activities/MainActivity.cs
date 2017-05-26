@@ -64,15 +64,6 @@ namespace nfc_app
             NdefMessage msg = new NdefMessage(
             new NdefRecord[] { CreateMimeRecord (
                 "application/nfc_app.nfc_app", Encoding.UTF8.GetBytes (text))
-			/**
-			* The Android Application Record (AAR) is commented out. When a device
-			* receives a push with an AAR in it, the application specified in the AAR
-			* is guaranteed to run. The AAR overrides the tag dispatch system.
-			* You can add it back in to guarantee that this
-			* activity starts when receiving a beamed message. For now, this code
-			* uses the tag dispatch system.
-			*/
-			//,NdefRecord.CreateApplicationRecord("com.example.android.beam")
 			});
             return msg;
         }
@@ -133,9 +124,9 @@ namespace nfc_app
             // only one message sent during the beam
             NdefMessage msg = (NdefMessage)rawMsgs[0];
             // record 0 contains the MIME type, record 1 is the AAR, if present
-            mInfoText.Text = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());     //WHAT TO DO WITH SENT DATA
+            string message = Encoding.UTF8.GetString(msg.GetRecords()[0].GetPayload());     //WHAT TO DO WITH SENT DATA
 
-            MakePayment(mInfoText.Text);
+            MakePayment(message);
         }
 
         public NdefRecord CreateMimeRecord(String mimeType, byte[] payload)
@@ -144,31 +135,6 @@ namespace nfc_app
             NdefRecord mimeRecord = new NdefRecord(
                 NdefRecord.TnfMimeMedia, mimeBytes, new byte[0], payload);
             return mimeRecord;
-        }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            // If NFC is not available, we won't be needing this menu
-            if (mNfcAdapter == null)
-            {
-                return base.OnCreateOptionsMenu(menu);
-            }
-            MenuInflater inflater = MenuInflater;
-            inflater.Inflate(Resource.Menu.Options, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.menu_settings:
-                    Intent intent = new Intent(Settings.ActionNfcsharingSettings);
-                    StartActivity(intent);
-                    return true;
-                default:
-                    return base.OnOptionsItemSelected(item);
-            }
         }
 
         private async void MakePayment(string token)
@@ -183,7 +149,6 @@ namespace nfc_app
             catch (Exception ex)
             {
                 Log.Warn(_tag, ex.Message);
-                //show message window that it failed
             }
         }
 

@@ -54,7 +54,7 @@ namespace nfc_app
             try
             {
                 Log.Warn(_tag, json);
-                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/create-order", json, null);
+                string response = await Http.Request("https://thawing-ocean-8598.herokuapp.com/create-order", json, _seller.stripeToken);
                 OpenDialog(typeof(Beam), "Apmokejimas sekmnigas");
             }
             catch (Exception ex)

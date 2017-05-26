@@ -40,10 +40,17 @@ namespace nfc_app
         }
 
         //How this works?
-        public static string GetRequest(string url)
+        public static string GetRequest(string url, string token)
         {
             string html = "";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
+            //request.Method = "GET";
+
+            if (token != null)
+            {
+                request.Headers["Authorization"] = token;
+            }
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream())

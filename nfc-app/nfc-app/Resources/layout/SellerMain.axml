@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:weightSum="100"
+    android:minWidth="25px"
+    android:minHeight="25px">
+  <TextView
+      android:text="User email"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_width="match_parent"
+      android:layout_weight="10"
+      android:layout_height="0dp"
+      android:textColor="@android:color/black"
+      android:gravity="top"
+      android:textSize="32sp"
+      android:id="@+id/txtSellerEmail" />
+  <Button
+      android:id="@+id/btnAddDiscount"
+      android:layout_marginTop="50dp"
+      android:layout_marginLeft="70dp"
+      android:layout_marginRight="70dp"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="10"
+      android:text="Pridėti nuolaidą"
+      android:theme="@android:style/Theme.DeviceDefault.Light"
+      android:textColor="@android:color/black"
+      android:enabled="false"/>
+  <Button
+      android:id="@+id/btnDeleteDiscount"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="70dp"
+      android:layout_marginRight="70dp"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="10"
+      android:text="Ištrinti nuolaidą"
+      android:theme="@android:style/Theme.DeviceDefault.Light"
+      android:textColor="@android:color/black"
+      android:enabled="false"/>
+  <Button
+      android:id="@+id/btnGetReport"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="70dp"
+      android:layout_marginRight="70dp"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="10"
+      android:text="Gauti ataskaitą"
+      android:theme="@android:style/Theme.DeviceDefault.Light"
+      android:textColor="@android:color/black"
+      android:enabled="false"/>
+  <Button
+      android:id="@+id/btnAddCard"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="70dp"
+      android:layout_marginRight="70dp"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="10"
+      android:text="Pridėti banko kortelę"
+      android:theme="@android:style/Theme.DeviceDefault.Light"
+      android:textColor="@android:color/black"/>
+  <Button
+      android:id="@+id/btnCreateOrder"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="70dp"
+      android:layout_marginRight="70dp"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="10"
+      android:text="Sukurti apmokėjimą"
+      android:theme="@android:style/Theme.DeviceDefault.Light"
+      android:textColor="@android:color/black" />
+</LinearLayout>

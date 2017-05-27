@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Android.Content.PM;
+using nfc_app.Activities;
 
 namespace nfc_app
 {
@@ -157,7 +158,7 @@ namespace nfc_app
         private void OpenDialog()
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            NotificationDialog notificationDialog = new NotificationDialog(typeof(ReaderActivity), "Apmokejimas issiustas sekmingai!"); //Change to SellerMainActivity
+            NotificationDialog notificationDialog = new NotificationDialog(typeof(SellerMainActivity), "Apmokejimas issiustas sekmingai!"); //Change to SellerMainActivity
             notificationDialog.Show(transaction, "dialog fragment");
         }
     }

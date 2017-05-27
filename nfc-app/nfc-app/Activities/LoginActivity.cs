@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Content.PM;
 using Android.Util;
 using Newtonsoft.Json.Linq;
+using nfc_app.Activities;
 
 namespace nfc_app
 {
@@ -64,19 +65,27 @@ namespace nfc_app
                     User user = new User(email, password, token);
                     user.group = group;
 
-
-                    if(group == "seller" && NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")
+                    Intent userActivity;
+                    if (group == "seller")
                     {
-                        Log.Warn(_tag, "not yet registered");
                         string sellerInfo = Http.GetRequest("https://thawing-ocean-8598.herokuapp.com/register-nfc", token);
-                        JObject seller = JObject.Parse(sellerInfo);
-                        string nfc_id = seller["device_id"].ToString();
-                        NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
-                        Log.Warn(_tag, "nfc id: " + nfc_id);
+                        userActivity = new Intent(this, typeof(SellerMainActivity));
+                        if (NFCSettings.GetSettings(ApplicationContext, "nfc_id") == "no-id")
+                        {
+                            Log.Warn(_tag, "not yet registered");
+                            JObject seller = JObject.Parse(sellerInfo);
+                            string nfc_id = seller["device_id"].ToString();
+                            NFCSettings.SaveSettings(ApplicationContext, "nfc_id", nfc_id);
+                            Log.Warn(_tag, "nfc id: " + nfc_id);
+                        }
+                    }
+                    else
+                    {
+                        userActivity = new Intent(this, typeof(UserMainActivity));
                     }
 
-                    Intent userActivity;
-                    userActivity = new Intent(this, typeof(UserMainActivity)); 
+                    
+                    
                     userActivity.PutExtra("User", Json.Serialize(user));
                     StartActivity(userActivity);
                 }

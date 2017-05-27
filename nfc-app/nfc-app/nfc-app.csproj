@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\AddCardActivity.cs" />
+    <Compile Include="Activities\SellerMainActivity.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
@@ -96,6 +97,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\UserMain.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SellerMain.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

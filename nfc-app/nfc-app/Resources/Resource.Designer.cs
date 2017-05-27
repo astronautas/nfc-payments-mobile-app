@@ -101,23 +101,38 @@ namespace nfc_app
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f09001f
-			public const int adFbButton = 2131296287;
+			// aapt resource value: 0x7f090025
+			public const int adFbButton = 2131296293;
 			
 			// aapt resource value: 0x7f09000d
 			public const int addCardButton = 2131296269;
 			
-			// aapt resource value: 0x7f090020
-			public const int addFriendButton = 2131296288;
+			// aapt resource value: 0x7f090026
+			public const int addFriendButton = 2131296294;
+			
+			// aapt resource value: 0x7f090028
+			public const int askMoneyButton = 2131296296;
 			
 			// aapt resource value: 0x7f090022
-			public const int askMoneyButton = 2131296290;
+			public const int btnAddCard = 2131296290;
+			
+			// aapt resource value: 0x7f09001f
+			public const int btnAddDiscount = 2131296287;
 			
 			// aapt resource value: 0x7f090005
 			public const int btnCreateAccount = 2131296261;
 			
+			// aapt resource value: 0x7f090023
+			public const int btnCreateOrder = 2131296291;
+			
+			// aapt resource value: 0x7f090020
+			public const int btnDeleteDiscount = 2131296288;
+			
 			// aapt resource value: 0x7f090016
 			public const int btnDialogProceed = 2131296278;
+			
+			// aapt resource value: 0x7f090021
+			public const int btnGetReport = 2131296289;
 			
 			// aapt resource value: 0x7f09001d
 			public const int btnMakePayment = 2131296285;
@@ -158,8 +173,8 @@ namespace nfc_app
 			// aapt resource value: 0x7f09000f
 			public const int emailInput = 2131296271;
 			
-			// aapt resource value: 0x7f090021
-			public const int getReportButton = 2131296289;
+			// aapt resource value: 0x7f090027
+			public const int getReportButton = 2131296295;
 			
 			// aapt resource value: 0x7f090011
 			public const int loginButton = 2131296273;
@@ -167,20 +182,20 @@ namespace nfc_app
 			// aapt resource value: 0x7f09000e
 			public const int loginText = 2131296270;
 			
-			// aapt resource value: 0x7f090025
-			public const int menu_settings = 2131296293;
+			// aapt resource value: 0x7f09002b
+			public const int menu_settings = 2131296299;
 			
 			// aapt resource value: 0x7f090013
 			public const int noAccText = 2131296275;
 			
-			// aapt resource value: 0x7f090024
-			public const int openAddCardButton = 2131296292;
+			// aapt resource value: 0x7f09002a
+			public const int openAddCardButton = 2131296298;
 			
 			// aapt resource value: 0x7f090010
 			public const int passwordInput = 2131296272;
 			
-			// aapt resource value: 0x7f090023
-			public const int payButton = 2131296291;
+			// aapt resource value: 0x7f090029
+			public const int payButton = 2131296297;
 			
 			// aapt resource value: 0x7f090018
 			public const int payFromBankButton = 2131296280;
@@ -213,7 +228,10 @@ namespace nfc_app
 			public const int txtNotification = 2131296277;
 			
 			// aapt resource value: 0x7f09001e
-			public const int userEmailText = 2131296286;
+			public const int txtSellerEmail = 2131296286;
+			
+			// aapt resource value: 0x7f090024
+			public const int userEmailText = 2131296292;
 			
 			static Id()
 			{
@@ -253,7 +271,10 @@ namespace nfc_app
 			public const int Reader = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int UserMain = 2130903048;
+			public const int SellerMain = 2130903048;
+			
+			// aapt resource value: 0x7f030009
+			public const int UserMain = 2130903049;
 			
 			static Layout()
 			{
